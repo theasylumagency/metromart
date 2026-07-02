@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --c-page: 251 250 247;
+  --c-surface: 244 242 237;
+  --c-card: 255 255 255;
+  --c-ink: 15 18 22;
+  --c-muted: 95 102 114;
+  --c-on-ink: 255 255 255;
+  --c-line: rgba(15, 18, 22, 0.08);
+  --c-accent: 255 107 0;
+  --c-accent-soft: 255 241 230;
+  --c-blue: 46 111 242;
+  --c-blue-soft: 237 243 255;
+  --c-mint: 13 166 120;
+  --c-mint-soft: 231 247 241;
+  --aurora-opacity: 0.55;
+  --c-proposal-span: 15 24 34;
+}
+
+.dark {
+  --c-page: 16 19 24;
+  --c-surface: 22 26 33;
+  --c-card: 28 33 42;
+  --c-ink: 232 237 246;
+  --c-muted: 148 156 170;
+  --c-on-ink: 16 19 24;
+  --c-line: rgba(232, 237, 246, 0.1);
+  --c-accent: 255 125 31;
+  --c-accent-soft: 58 36 16;
+  --c-blue: 96 145 247;
+  --c-blue-soft: 24 36 61;
+  --c-mint: 45 196 150;
+  --c-mint-soft: 17 45 38;
+  --aurora-opacity: 0.16;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: rgb(var(--c-page));
+  color: rgb(var(--c-ink));
+  font-feature-settings: 'ss01' on;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+::selection {
+  background: rgb(var(--c-accent) / 0.25);
+}
+
+.aurora {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: var(--aurora-opacity);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(rgb(var(--c-ink) / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--c-ink) / 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black 30%, transparent 75%);
+}
+
+.proposal-span {
+  color: rgb(var(--c-proposal-span));
+}
+
+.card-line {
+  border: 1px solid var(--c-line);
+}
+
+.text-gradient {
+  background: linear-gradient(92deg, #FF6B00 0%, #FF9F2E 55%, #FFC46B 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.dark .text-gradient {
+  background: linear-gradient(92deg, #FF7D1F 0%, #FFA542 55%, #FFC46B 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.card-hover-accent {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.card-hover-accent:hover {
+  box-shadow: 0 12px 36px -4px rgba(255, 107, 0, 0.28), 0 4px 14px -2px rgba(255, 107, 0, 0.14);
+  border-color: rgb(var(--c-accent) / 0.3);
+}
+
+.card-hover-blue {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.card-hover-blue:hover {
+  box-shadow: 0 12px 36px -4px rgba(46, 111, 242, 0.28), 0 4px 14px -2px rgba(46, 111, 242, 0.14);
+  border-color: rgb(var(--c-blue) / 0.3);
+}
+
+.card-hover-mint {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.card-hover-mint:hover {
+  box-shadow: 0 12px 36px -4px rgba(13, 166, 120, 0.28), 0 4px 14px -2px rgba(13, 166, 120, 0.14);
+  border-color: rgb(var(--c-mint) / 0.3);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-blob,
+  .animate-blob-slow,
+  .animate-floaty,
+  .animate-floaty-slow {
+    animation: none !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Glassmorphism & Proposal Utilities */
+.glass-nav {
+  background: rgba(244, 246, 248, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #DCE1E8;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(220, 225, 232, 0.8);
+  box-shadow: 0 10px 30px -10px rgba(15, 24, 34, 0.08);
+}
+
+.glass-card-dark {
+  background: rgba(14, 33, 80, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+}
+
+/* Scroll reveal helper classes */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scrollbar Utility for smooth swiping on mobile headers */
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Custom Print styles to compile professional-grade PDF directly from print view */
+@media print {
+  @page {
+    margin: 15mm;
+  }
+
+  :root {
+    --paper: #ffffff;
+    --card: #ffffff;
+    --line: #e2e8f0;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
